@@ -27,8 +27,9 @@ class ItemTableViewCell: UITableViewCell {
     }
 
     func configure(_ inventoryItem: InventoryItem) {
+        titleLabel.sizeToFit()
         titleLabel.text = inventoryItem.title
-        stockLabel.text = String(inventoryItem.stockedQuantity)
+        stockLabel.text = "Stock - " + String(inventoryItem.stockedQuantity)
         priceLabel.text = String(inventoryItem.price)
         
         if(inventoryItem.category == "Computers") {

@@ -11,7 +11,6 @@ import UIKit
 class ItemsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
     @IBOutlet weak var itemsTableView: UITableView!
-    var index = 0
     var inventorySet: InventorySet?
     
     override func viewDidLoad() {
@@ -32,12 +31,10 @@ class ItemsViewController: UIViewController, UITableViewDelegate, UITableViewDat
         let cell = tableView.dequeueReusableCell(withIdentifier: "itemCell", for: indexPath)
         
         if let cell = cell as? ItemTableViewCell {
-            let item = inventorySet?.products[index]
+            let item = inventorySet?.products[indexPath.row]
             cell.configure(item!)
-            index += 1
         }
-        
-        return cell
+            return cell
     }
     
     func getJSONData() -> InventorySet? {
@@ -45,9 +42,7 @@ class ItemsViewController: UIViewController, UITableViewDelegate, UITableViewDat
         let jsonFileName = "inventory"
         
         if let inventorySet = InventoryItemLoader.load(jsonFileName: jsonFileName) {
-            if(inventorySet.status == "ok") {
-                return inventorySet
-            }
+            return inventorySet
         } else {
             print("Error with JSON loading!")
         }
